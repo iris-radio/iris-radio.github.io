@@ -177,14 +177,107 @@
             border: 1px solid #eaeaea;
             transition: all 0.3s ease;
         }
-        .card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.05);
-            border-color: transparent;
+        
+        /* 연구 카드 이미지 래퍼 및 안내 뱃지 */
+        .card-image {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 16 / 10;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 20px;
+            background-color: #f8fafc;
+            border: 1px solid #eaeaea;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
+        .card-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain; /* ⭐️ 잘림 방지: 이미지 전체가 온전히 표시됨 */
+            display: block;
+            transition: transform 0.3s ease;
+        }
+        .card-image:hover img {
+            transform: scale(1.02);
+        }
+
+        /* 클릭 확대 안내 뱃지 */
+        .zoom-badge {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            background: rgba(17, 24, 39, 0.75);
+            backdrop-filter: blur(4px);
+            color: #ffffff;
+            font-size: 0.75rem;
+            font-weight: 500;
+            padding: 4px 10px;
+            border-radius: 20px;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            pointer-events: none;
+            transition: all 0.2s ease;
+        }
+        .card-image:hover .zoom-badge {
+            background: rgba(37, 99, 235, 0.9); /* 마우스 올렸을 때 강조색 */
+            transform: translateY(-2px);
+        }
+
+        /* 이미지 확대 모달(라이트박스) */
+        .img-modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            z-index: 2000;
+            background-color: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(8px);
+            justify-content: center;
+            align-items: center;
+            padding: 24px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .img-modal.active {
+            display: flex;
+            opacity: 1;
+        }
+        .img-modal-content {
+            max-width: 92vw;
+            max-height: 88vh;
+            object-fit: contain;
+            border-radius: 12px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            transform: scale(0.95);
+            transition: transform 0.3s ease;
+            background-color: #ffffff;
+        }
+        .img-modal.active .img-modal-content {
+            transform: scale(1);
+        }
+        .img-modal-close {
+            position: absolute;
+            top: 20px;
+            right: 24px;
+            background: none;
+            border: none;
+            color: #ffffff;
+            font-size: 2.5rem;
+            line-height: 1;
+            cursor: pointer;
+            padding: 8px;
+            transition: color 0.2s;
+            z-index: 2010;
+        }
+        .img-modal-close:hover {
+            color: #93c5fd;
+        }
+
         .card h3 { font-size: 1.25rem; font-weight: 700; margin-bottom: 12px; }
         .card p { color: var(--text-muted); font-size: 0.95rem; }
-        .card-icon { font-size: 2rem; margin-bottom: 20px; color: var(--accent-color); }
 
         /* 최근 소식 섹션 (복구) */
         .news-list { border-top: 1px solid #eaeaea; }
@@ -332,17 +425,26 @@
             
             <div class="grid-3">
                 <div class="card">
-                    <div class="card-icon">🏙️</div>
+                    <div class="card-image" onclick="openModal('img/research1.png', 'Wireless Channel Modeling & Digital Twin Simulation')">
+                        <img src="img/research1.png" alt="Wireless Channel Modeling & Digital Twin Simulation">
+                        <span class="zoom-badge">🔍 Click to zoom</span>
+                    </div>
                     <h3>Wireless Channel Modeling</h3>
                     <p>복잡한 물리적 환경에서의 전파 특성을 분석하고 실측 기반의 무선 채널 모델을 개발합니다. 도심, 차량, 비지상 네트워크(NTN) 등 다양한 환경을 모델링하여 차세대 통신망 설계의 기반을 마련합니다.</p>
                 </div>
                 <div class="card">
-                    <div class="card-icon">〰️</div>
+                    <div class="card-image" onclick="openModal('img/research1.png', 'Wireless Channel Modeling & Digital Twin Simulation')">
+                        <img src="img/research1.png" alt="Wireless Channel Modeling & Digital Twin Simulation">
+                        <span class="zoom-badge">🔍 Click to zoom</span>
+                    </div>
                     <h3>Wireless Communications and Signal Processing</h3>
                     <p>가혹한 무선 환경에서도 신뢰성 있고 효율적으로 동작하는 통신 및 신호 처리 알고리즘을 개발합니다. 파형 설계, 빔포밍, 채널 추정 등 미래 고주파·광대역 무선 시스템을 위한 핵심 기술을 연구합니다.</p>
                 </div>
                 <div class="card">
-                    <div class="card-icon">📊</div>
+                    <div class="card-image" onclick="openModal('img/research1.png', 'Wireless Channel Modeling & Digital Twin Simulation')">
+                        <img src="img/research1.png" alt="Wireless Channel Modeling & Digital Twin Simulation">
+                        <span class="zoom-badge">🔍 Click to zoom</span>
+                    </div>
                     <h3>Network QoS Evaluation and Optimization</h3>
                     <p>현실적인 시뮬레이션과 데이터 기반 방법론을 통해 무선 네트워크의 서비스 품질(QoS)을 평가하고 최적화합니다. 디지털 트윈과 AI 기법을 활용하여 효율적인 자원 관리와 네트워크 성능 예측을 수행합니다.</p>
                 </div>
@@ -393,6 +495,11 @@
             </div>
         </div>
     </footer>
+
+    <div id="imageModal" class="img-modal" onclick="closeModal()">
+        <button class="img-modal-close" aria-label="닫기">&times;</button>
+        <img id="modalImg" class="img-modal-content" src="" alt="확대 이미지" onclick="event.stopPropagation()">
+    </div>
 
     <!-- 페이지 트랜지션 및 URL 파라미터 기반 스크롤 스크립트 -->
     <script>
@@ -453,6 +560,30 @@
                 });
             });
         });
+
+        // 이미지 확대 모달 열기/닫기 스크립트
+        function openModal(src, alt) {
+            const modal = document.getElementById('imageModal');
+            const modalImg = document.getElementById('modalImg');
+            modalImg.src = src;
+            modalImg.alt = alt || '확대 이미지';
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden'; // 배경 스크롤 방지
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('imageModal');
+            modal.classList.remove('active');
+            document.body.style.overflow = ''; // 스크롤 복원
+        }
+
+        // ESC 키로 모달 닫기
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                closeModal();
+            }
+        });
+
     </script>
 </body>
 </html>
