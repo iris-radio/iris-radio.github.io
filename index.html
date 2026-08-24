@@ -79,7 +79,7 @@
             align-items: center;
             position: relative;
             overflow: hidden;
-            padding-top: var(--header-height);
+            padding-top: var(--sticky-header-height, 72px);
             background-color: #ffffff;
 
             /* 1. 은은한 40px 공학 격자(Grid) 패턴 베이스 */
@@ -251,7 +251,8 @@
             /* 기존 모바일 설정 유지 */
             .pub-entry { padding-left: 12px; }
             .hero h1 { font-size: 2.5rem; }
-            .hero p { font-size: 1.05rem; text-align: left; line-height: 1.65; margin-bottom: 2rem; }            
+            .hero p { font-size: 1.05rem; text-align: left; line-height: 1.65; margin-bottom: 2rem; }     
+            .hero-custom-graphic { max-width: 90vw; }       
             .news-item { flex-direction: column; align-items: flex-start; gap: 8px; padding: 20px; }
             .footer-inner { flex-direction: column; gap: 24px; }
             .prof-card { flex-direction: column; text-align: left; align-items: center; }
