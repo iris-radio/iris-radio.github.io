@@ -16,24 +16,17 @@
             --bg-color: #f9fafb;
             --text-main: #111827;
             --text-muted: #6b7280;
-            --header-height: 72px;
+            --sticky-header-height: 72px; /* JS가 자동 계산 */
         }
-        
-        /* 스무스 스크롤 적용 */
         html { 
             scroll-behavior: smooth; 
+            overflow-x: hidden; 
         }
-        
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             font-family: 'Pretendard Variable', Pretendard, sans-serif;
-            color: var(--text-main);
-            line-height: 1.6;
-            background-color: #ffffff;
-            
-            /* 페이지 슬라이드 애니메이션 초기 설정 */
-            opacity: 0;
-            transform: translateX(30px);
+            color: var(--text-main); line-height: 1.6; background-color: #ffffff; width: 100%;
+            opacity: 0; transform: translateX(30px);
             transition: opacity 0.5s ease-out, transform 0.5s ease-out;
         }
         
@@ -60,40 +53,23 @@
         
         section { 
             padding: 100px 0; 
-            scroll-margin-top: var(--header-height);
+            scroll-margin-top: calc(var(--sticky-header-height) + 16px);
         }
-        
-        .section-title {
-            font-size: 2.5rem;
-            font-weight: 700;
-            margin-bottom: 1rem;
-            letter-spacing: -0.02em;
-        }
-        .section-desc {
-            color: var(--text-muted);
-            font-size: 1.125rem;
-            margin-bottom: 3rem;
-        }
+        .section-title { font-size: 2.5rem; font-weight: 700; margin-bottom: 1rem; letter-spacing: -0.02em; }
+        .section-desc { color: var(--text-muted); font-size: 1.125rem; margin-bottom: 3rem; }
 
-        /* 내비게이션 (헤더) */
+        .site-header {
+            position: sticky; top: 0; left: 0; right: 0; z-index: 1000;
+        }
         header {
-            position: sticky;
-            top: 0; left: 0; right: 0;
-            background: rgba(255, 255, 255, 0.9);
-            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(10px);
             border-bottom: 1px solid #eaeaea;
-            z-index: 1000;
-            height: var(--header-height);
         }
-        .nav-inner {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            height: 100%;
-        }
-        .logo { font-size: 1.5rem; font-weight: 800; letter-spacing: -0.03em; }
+        .nav-inner { display: flex; justify-content: space-between; align-items: center; min-height: 72px; padding: 10px 0; }
+        .logo { font-size: 1.5rem; font-weight: 800; letter-spacing: -0.03em; flex-shrink: 0; }
         .logo span { color: var(--accent-color); }
-        .nav-links { display: flex; gap: 2rem; font-weight: 600; font-size: 1rem; }
+        .nav-links { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 10px 2rem; font-weight: 600; font-size: 1rem; }
+        .nav-links a { white-space: nowrap; }
         .nav-links a:hover, .nav-links a.active { color: var(--accent-color); transition: color 0.2s; }
 
         /* 히어로(메인) 섹션 */
@@ -266,18 +242,10 @@
             
             /* 2. 로고와 메뉴를 위아래로 배치 */
             .nav-inner { 
-                flex-direction: column; 
-                gap: 16px; 
+                flex-direction: column; gap: 12px; padding: 16px 0; 
             }
-            
-            /* 3. 자동 줄바꿈(flex-wrap)을 적용하여 모든 메뉴가 보이게 만듭니다 */
             .nav-links { 
-                display: flex; 
-                flex-wrap: wrap;         /* 핵심: 공간이 부족하면 아랫줄로 넘김 */
-                justify-content: center; /* 메뉴들을 가운데 정렬 */
-                gap: 12px 24px;          /* 위아래 간격 12px, 좌우 간격 24px */
-                width: 100%; 
-                font-size: 0.95rem;      /* 모바일에서는 글씨 크기를 살짝 줄임 */
+                justify-content: center; gap: 8px 16px; width: 100%; font-size: 0.95rem;      
             }
             
             /* 기존 모바일 설정 유지 */
@@ -321,22 +289,24 @@
 <body>
 
     <!-- 헤더 -->
-    <header>
-        <div class="container nav-inner">
-            <a href="index.html" class="logo">IRIS <span>Lab.</span></a>
-            <nav class="nav-links">
-                <!-- 내부 해시 스크롤 -->
-                <a href="#about">About</a>
-                <a href="#research">Research</a>
-                <a href="#news">News</a>
-                <!-- 별도 페이지 이동 -->
-                <a href="publications.html">Publications</a>
-                <a href="members.html">Members</a>
-                <!-- 내부 해시 스크롤 -->
-                <a href="#join">Join Us</a>
-            </nav>
-        </div>
-    </header>
+    <div class="site-header">
+        <header>
+            <div class="container nav-inner">
+                <a href="index.html" class="logo">IRIS <span>Lab.</span></a>
+                <nav class="nav-links">
+                    <!-- 내부 해시 스크롤 -->
+                    <a href="#about">About</a>
+                    <a href="#research">Research</a>
+                    <a href="#news">News</a>
+                    <!-- 별도 페이지 이동 -->
+                    <a href="publications.html">Publications</a>
+                    <a href="members.html">Members</a>
+                    <!-- 내부 해시 스크롤 -->
+                    <a href="#join">Join Us</a>
+                </nav>
+            </div>
+        </header>
+    </div>
 
     <!-- 히어로 -->
     <section class="hero" id="about">
@@ -430,6 +400,19 @@
             requestAnimationFrame(() => {
                 document.body.classList.add('page-loaded');
             });
+
+            const siteHeader = document.querySelector('.site-header');
+            if (siteHeader) {
+                const updateHeaderHeight = () => {
+                    document.documentElement.style.setProperty(
+                        '--sticky-header-height',
+                        `${siteHeader.offsetHeight}px`
+                    );
+                };
+                const observer = new ResizeObserver(updateHeaderHeight);
+                observer.observe(siteHeader);
+                updateHeaderHeight();
+            }
 
             // 2. 다른 페이지(Members 등)에서 URL파라미터(?to=join)를 달고 넘어온 경우
             const urlParams = new URLSearchParams(window.location.search);
