@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Members | IRIS Lab</title>
+    <meta name="description" content="Meet the members of IRIS Lab at Incheon National University led by Prof. Kyung-Won Kim.">
+
     <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.8/dist/web/variable/pretendardvariable.css" />
     <style>
         :root {
@@ -76,7 +78,7 @@
         /* --- [수정/추가된 교수님 카드 스타일] --- */
         /* 내용이 길어져도 사진이 상단에 유지되도록 align-items: flex-start 적용 */
         .prof-card { display: flex; gap: 40px; align-items: flex-start; background: white; padding: 40px; border-radius: 16px; border: 1px solid #eaeaea; }
-        .prof-card .member-photo { width: 400px; height: 600px; margin: 0; border-radius: 16px; flex-shrink: 0;}
+        .prof-card .member-photo { width: 100%; max-width: 400px; height: auto; margin: 0; border-radius: 16px; flex-shrink: 0;}
         .prof-details { text-align: left; flex-grow: 1; }
         .prof-details .member-name { font-size: 2rem; margin-bottom: 4px; }
         
@@ -88,6 +90,43 @@
         .prof-info-year { font-weight: 600; color: var(--text-muted); width: 120px; flex-shrink: 0; }
         .prof-info-desc { color: var(--text-main); flex-grow: 1; }
         /* -------------------------------------- */
+
+        /* 교수 프로필 외부 링크 버튼 */
+        .prof-contact-row {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        .prof-contact-row .member-email {
+            font-size: 1rem;
+            color: var(--primary-color);
+            font-weight: 500;
+        }
+        .prof-icon-links {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .prof-icon-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 22px;
+            height: 22px;
+            border-radius: 4px;
+            transition: transform 0.2s ease, opacity 0.2s ease;
+        }
+        .prof-icon-btn:hover {
+            transform: translateY(-2px);
+            opacity: 0.8;
+        }
+        .prof-icon-btn svg {
+            width: 100%;
+            height: 100%;
+            display: block;
+        }
 
         footer { background-color: #ffffff; border-top: 1px solid #eaeaea; padding: 40px 0; color: var(--text-muted); font-size: 0.9rem; text-align: center; }
 
@@ -215,7 +254,21 @@
                 <p class="member-role" style="font-size: 1rem;">Assistant Professor<br>
                     Department of Information and Telecommunication Engineering<br>
                     Incheon National University</p>
-                <a href="mailto:kyungwon@inu.ac.kr" class="member-email" style="display:inline-block; margin-bottom: 12px; font-size: 1rem;">kyungwon@inu.ac.kr</a>
+
+                <div class="prof-contact-row">
+                    <a href="mailto:kyungwon@inu.ac.kr" class="member-email">kyungwon@inu.ac.kr</a>
+                    <div class="prof-icon-links">
+                        <a href="https://scholar.google.com/citations?user=VAtPoIEAAAAJ" target="_blank" rel="noopener noreferrer" class="prof-icon-btn" title="Google Scholar">
+                            <svg viewBox="0 0 24 24"><path fill="#4285F4" d="M12 24a7 7 0 1 1 0-14 7 7 0 0 1 0 14zm0-24L0 9.5l4.838 3.94A8 8 0 0 1 12 9a8 8 0 0 1 7.162 4.44L24 9.5z"/></svg>
+                        </a>
+                        <a href="https://orcid.org/0000-0002-9663-9954" target="_blank" rel="noopener noreferrer" class="prof-icon-btn" title="ORCID: 0000-0002-9663-9954">
+                            <svg viewBox="0 0 256 256"><path fill="#A6CE39" d="M256 128c0 70.7-57.3 128-128 128C57.3 256 0 198.7 0 128 0 57.3 57.3 0 128 0c70.7 0 128 57.3 128 128z"/><path fill="#ffffff" d="M86.3 186.2H70.9V79.1h15.4v107.1zm-7.7-124.6c-5.4 0-9.7-4.4-9.7-9.7 0-5.4 4.4-9.8 9.7-9.8 5.4 0 9.8 4.4 9.8 9.8 0 5.3-4.4 9.7-9.8 9.7zm30.3 17.5h41.6c39.6 0 57 28.3 57 53.6 0 27.5-21.5 53.6-56.8 53.6h-41.8V79.1zm15.4 93.3h24.8c29.3 0 43.3-17.7 43.3-39.7 0-23.7-16.1-39.7-42.6-39.7h-25.5v79.4z"/></svg>
+                        </a>
+                        <a href="https://www.scopus.com/authid/detail.uri?authorId=57188854404" target="_blank" rel="noopener noreferrer" class="prof-icon-btn" title="Scopus: 57188854404">
+                            <svg viewBox="0 0 64 64"><rect width="64" height="64" rx="10" fill="#FF6C00"/><path fill="none" stroke="#ffffff" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" d="M25.5 23.5C24.5 20 22 19 19 19C15 19 11.5 21.5 11.5 25C11.5 29 15 30.5 19 31.5C23.5 32.5 28 34 28 39C28 43 24 45.5 19 45.5C15 45.5 12.5 44 11 40.5 M54.5 22.5A13.5 13.5 0 1 0 54.5 41.5"/></svg>
+                        </a>
+                    </div>
+                </div>
 
                 <!-- 경력 (Experience) -->
                 <div class="prof-info-group">
